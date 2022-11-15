@@ -1,24 +1,38 @@
 #include<stdio.h>
 #include<math.h>
 
+#define FORM 3.14/180
+
+void rotation(int x, int y, int j, double c, double s) {
+    int new[2];
+    new[0] = floor(x * c + y * s);
+    new[1] = floor(-x * s + y * c);
+    printf(">> [%d](%d, %d)\n", j, new[0], new[1]);
+}
+
 int main() {
-    int x1, y1, x2, y2;
+    int num;
+
+    printf("Enter number of coordinates needed: ");
+    scanf("%d", &num);
+
+    int x[num], y[num], j;
     double s, c, angle;
 
-    printf("Enter coordinates A(x, y): ");
-    scanf("%d %d", &x1, &y1);
-    printf("Enter coordinates B(x, y): ");
-    scanf("%d %d", &x2, &y2);
+    for (j = 0; j < num; j++) {
+        printf("Enter the coordinates (x, y) [%d]: ", j);
+        scanf("%d %d", &x[j], &y[j]);
+    }
+
     printf("Enter rotation angle: ");
     scanf("%lf", &angle);
-    
-    c = cos(angle *3.14/180);
-    s = sin(angle *3.14/180);
-    x1 = floor(x1 * c + y1 * s);
-    y1 = floor(-x1 * s + y1 * c);
-    x2 = floor(x2 * c + y2 * s);
-    y2 = floor(-x2 * s + y2 * c);
 
-    printf("The rotated coordinates are: \nA(%d, %d); B(%d, %d)", x1, y1 ,x2, y2); 
+    c = cos(angle *FORM);
+    s = sin(angle *FORM);
+    
+    for (j = 0; j < num; j++) {
+        rotation(x[j], y[j], j, c, s);
+    }
+
     return 0;
 }
